@@ -10,4 +10,12 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    public function getPageNo(){
+        return $this->agent->isMobile()? 10:40;
+    }
+    
+    public function getSmallPageNo(){
+        return $this->agent->isMobile()? 5:40;
+    }
 }
