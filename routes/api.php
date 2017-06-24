@@ -16,7 +16,3 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-$api->post('register', 'Auth\RegisterController@registerForApp');
-    $api->post('loginWithToken', 'Auth\SocialAuthController@loginWithToken');
-    $api->post('loginWithPassword', 'Auth\LoginController@loginWithPassword');
