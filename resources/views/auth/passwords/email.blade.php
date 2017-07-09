@@ -1,7 +1,8 @@
-@extends('layouts.template-mobile')
+@extends('layouts.app')
 
-@section('t1_content')
-<div class="container" style="margin-top: 20px;">
+<!-- Main Content -->
+@section('content')
+<div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">

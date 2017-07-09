@@ -1,7 +1,6 @@
 <?php
 use \Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
-
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -16,7 +15,7 @@ use Carbon\Carbon;
 $factory->define(App\User::class, function (Faker\Generator $faker) {
 static $password;
 
-/*    return [
+    return [
         'provider' => 'password',
         'provider_user_id' => $faker-> ean8,
         'image' => $faker->imageUrl(),
@@ -26,22 +25,16 @@ static $password;
         'isseller' => 0,
         'remember_token' => str_random(10),
     ];
-*/
-      return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'password' => $password ?: $password = bcrypt('secret'),
-        'remember_token' => str_random(10),
-      ];
 });
 
+/*
 $factory->define(App\Category::class, function (Faker\Generator $faker) {
     $category_name = array('Chinese', 'Indian', 'Healthy', 'Italian', 'Salad', 'Pizza', 'Noodle');
     return [
         'name' => $category_name[random_int(0,6)],
         'order' => $faker->randomDigit
     ];
-});
+});*/
 
 $factory->define(App\Seller::class, function (Faker\Generator $faker) {
     $user = factory(App\User::class)->create();
@@ -89,7 +82,7 @@ $factory->define(App\Review::class, function (Faker\Generator $faker ) {
         'user_id' => random_int(\DB::table('users')->min('id'), 
                 \DB::table('users')->max('id'))
     ];
-});
+});*/
 
 $factory->define(App\Keyword::class, function (Faker\Generator $faker) {
 
@@ -103,6 +96,7 @@ $factory->define(App\Keyword::class, function (Faker\Generator $faker) {
     ];
 });
 
+
 $factory->define(App\DishImage::class, function (Faker\Generator $faker) {
 
     return [
@@ -111,7 +105,7 @@ $factory->define(App\DishImage::class, function (Faker\Generator $faker) {
         'dish_id' => random_int(\DB::table('dishes')->min('id'), 
                 \DB::table('dishes')->max('id')),
     ];
-});*/
+});
 
 $factory->define(App\ShoppingCart::class, function (Faker\Generator $faker) {
     
@@ -151,18 +145,19 @@ $factory->define(App\Order::class, function (Faker\Generator $faker) {
         'type' => $type[random_int(0,1)],
         'deliver_fee' => $PM=='PICKUP'? 0: $faker->randomFloat($nbMaxDecimals = 4, $min = 0, $max = 5),
         'total' => $faker-> randomFloat($nbMaxDecimals = 4, $min = 80, $max = 100),
-        'order_time' => $faker-> dateTimeThisMonth,
+//        'order_time' => $faker-> dateTimeThisMonth,
         'pickup_time' => $faker-> dateTimeThisMonth,
-        'pickup_description' => $PM,
+//        'pickup_description' => $PM,
         'address' => $faker-> streetAddress,
         'google_place_id' => $faker->uuid,
-        'pay_time' => $faker-> dateTimeThisMonth,
+//        'pay_time' => $faker-> dateTimeThisMonth,
         'payment_method' => $payment_method[random_int(0,0)],
         'complete_time' => $faker-> dateTimeThisMonth,
         'user_id' => random_int(\DB::table('users')->min('id'), 
                 \DB::table('users')->max('id')),
         'seller_id' => random_int(\DB::table('sellers')->min('id'), 
                 \DB::table('sellers')->max('id')),
+         'pickup_type' => $pickup_method[random_int(0,1)],
     ];
 });
 
@@ -225,16 +220,12 @@ $factory->define(App\Wish::class, function (Faker\Generator $faker) {
 $factory->define(App\PickupMethod::class, function (Faker\Generator $faker) {
     $typeArray = array('DATE', 'WEEKDAY');
     $weekdayArray = array('1,2,3', '1,3,5', '2,4,6', '2', '6,7', '3');
-    $weekdayMsgArray = array('Mon-Wed', 'Mon,Wed,Fri', 'Tue,Thr,Sat', 'Tue', 'Sat-Sun', 'Wed');
-    $weekdayMsgArray2 = array('Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat', 'Sun');
-    $timeArray = array('09:30', '12:00', '13:30', '20:00');
+    $weekdayMsgArray = array('Mon-Wed', 'Mon,Wed,Fri', 'Tue,Thr,Sat', 'Tue', 'Sat-Sun', 'Wen');
     $weekIdx = random_int(0,5);
     $no_time = $faker->boolean();
-    $start_time = Carbon::createFromFormat('H:i', $timeArray[random_int(0, 3)]);
+    $start_time = Carbon::now();
     $type = $typeArray[random_int(0,1)];
     $seller_id = 0;
-    $date = Carbon::now()->addDays(random_int(0, 30));
-    $dayOfWeek = $date->dayOfWeek==0? 7: $date->dayOfWeek;
     
     repeat:
     try{
@@ -244,20 +235,20 @@ $factory->define(App\PickupMethod::class, function (Faker\Generator $faker) {
     } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
         goto repeat;
     }
-
+    
     return [
             'seller_id' => $seller_id,
             'type' => $type,
-            'date' => $type!='DATE'? null: $date->addDays(random_int(0, 30))->format('m/d/Y'), 
-            'weekday' => $type=='DATE'? $dayOfWeek: $weekdayArray[$weekIdx],
-            'weekday_msg' => $type=='DATE'? $weekdayMsgArray2[$dayOfWeek-1]: $weekdayMsgArray[$weekIdx],
+            'date' => $type=='DATE'? $faker->dateTimeThisMonth : null,
+            'weekday' => $weekdayArray[$weekIdx],
+            'weekday_msg' => $weekdayMsgArray[$weekIdx],
             'no_time' => $no_time,
-            'start_time'=> $no_time? null : $start_time->format('H:i'),
-            'end_time'=> $no_time? null : $start_time->addMinutes(30)->format('H:i')
+            'start_time'=> $no_time? null : $start_time->format('h:i A'),
+            'end_time'=> $no_time? null : $start_time->addMinutes(30)->format('h:i A'),
     ];
 });
 
-/*
+
 $factory->define(App\Location::class, function (Faker\Generator $faker) {
     $array = array('sellers', 'orders', 'wishes', 'pickup_locations');
     $table_name = $array[random_int(0,3)];
@@ -283,7 +274,7 @@ $factory->define(App\Location::class, function (Faker\Generator $faker) {
         'country'=>$faker->country
     ];
 });
-*/
+
 
 $factory->define(App\Ingredient::class, function (Faker\Generator $faker) {
 
@@ -296,19 +287,9 @@ $factory->define(App\Ingredient::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(App\PickupLocation::class, function (Faker\Generator $faker) {
-    
-    $seller_id = 0;
-    repeat:
-    try{
-        $seller_id = random_int(\DB::table('sellers')->min('id'), 
-                \DB::table('sellers')->max('id'));
-        \App\Seller::findOrFail($seller_id);
-    } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-        goto repeat;
-    }    
-    
     return [
-        'seller_id' => $seller_id,
+        'seller_id' => random_int(\DB::table('sellers')->min('id'), 
+                \DB::table('sellers')->max('id')),
         'description' => $faker->sentence,
         'address' => $faker-> streetAddress,
         'google_place_id' => $faker->uuid,

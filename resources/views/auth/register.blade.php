@@ -1,28 +1,11 @@
-@extends('layouts.template-manage')
+@extends('layouts.app')
 
-@section('custom_css')
-<!-- Radio and check inputs -->
-<link href="{{ URL::asset('/css/skins/square/grey.css')}}" rel="stylesheet">
-@endsection
-
-@section('t1_content')
-<div id="position">
-        <div class="container">
-            <ul>
-                <li><a href="#0">Home</a></li>
-                <li><a href="#0">Category</a></li>
-                <li>Page active</li>
-            </ul>
-        </div>
-    </div><!-- Position -->
-<div class="container" style="margin-top: 20px;">
+@section('content')
+<div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">Register</div>
-                
-                @include('partials.messages')
-                
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
                         {{ csrf_field() }}
@@ -69,17 +52,11 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
+                        <div class="form-group">
                             <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-
-                                @if ($errors->has('password_confirmation'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
-                                    </span>
-                                @endif
                             </div>
                         </div>
 

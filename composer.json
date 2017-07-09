@@ -6,14 +6,37 @@
     "type": "project",
     "require": {
         "php": ">=5.6.4",
-        "laravel/framework": "5.4.*",
-        "laravel/tinker": "~1.0",
-        "laravel/scout": "^2.0"
+        "laravel/framework": "5.3.*",
+        "barryvdh/laravel-ide-helper": "v2.2.1",
+        "dingo/api": "1.0.x@dev",
+        "laravel/socialite": "^2.0",
+        "google/apiclient": "2.0.*",
+        "lithiumdev/l5-swagger": "~1.0",
+
+        "intervention/image": "^2.3",
+        "laravel/passport": "^1.0",
+        "socialiteproviders/weixin": "^3.0",
+        "socialiteproviders/weixin-web": "^2.0",
+        "socialiteproviders/weibo": "^2.0",
+        "skagarwal/google-places-api": "^1.0",
+        "guzzlehttp/guzzle": "^6.2",
+        "simplesoftwareio/simple-sms": "3.0.*",
+        "doctrine/dbal": "^2.5",
+        
+        "cartalyst/stripe-laravel": "5.0.*",
+        "laravelcollective/html":"^5.3.0",
+        "laravel/scout": "^2.0",
+        "elasticsearch/elasticsearch": "^5.0",
+        "algolia/algoliasearch-client-php": "^1.13",
+        "mobiledetect/mobiledetectlib": "^2.8",
+        "jenssegers/agent": "^2.4"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "~5.7"
+        "phpunit/phpunit": "~5.0",
+        "symfony/css-selector": "3.1.*",
+        "symfony/dom-crawler": "3.1.*"
     },
     "autoload": {
         "classmap": [
@@ -24,9 +47,9 @@
         }
     },
     "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
-        }
+        "classmap": [
+            "tests/TestCase.php"
+        ]
     },
     "scripts": {
         "post-root-package-install": [
@@ -45,8 +68,6 @@
         ]
     },
     "config": {
-        "preferred-install": "dist",
-        "sort-packages": true,
-        "optimize-autoloader": true
+        "preferred-install": "dist"
     }
 }
