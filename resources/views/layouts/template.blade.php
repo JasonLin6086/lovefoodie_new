@@ -29,7 +29,6 @@
                 ]);
             ?>
         </script>
-
         <!-- Template CSS =============================================== -->
             @yield('template_css')
         <!-- End Template CSS =========================================== -->
@@ -37,6 +36,7 @@
         <link href="{{ URL::asset('/css/custom/template.css') }}" rel="stylesheet">
         <link href="{{ URL::asset('/css/custom/public.search-input.css') }}" rel="stylesheet">
         <link href="{{ URL::asset('/css/custom/map-location-add.css') }}" rel="stylesheet">
+
     </head>
     <body>
 
@@ -103,11 +103,11 @@
                                                                 document.getElementById('logout-form').submit();">
                                                         Logout
                                                     </a>
-
                                                     <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
                                                         {{ csrf_field() }}
                                                     </form>
                                                 </li>
+                                                <li><a href="{{ url('/buyer/test') }}">Test</a></li>
                                             </ul>
                                         </li>
                                         <li id="cart" class="btn-group">

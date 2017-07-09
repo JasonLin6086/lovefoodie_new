@@ -7,7 +7,8 @@
         <li class="{{ $tab1=='order' ? 'active' : '' }}"><a href="{{ url('/buyer/order-list') }}" aria-expanded="{{ $tab1=='order' ? 'true' : 'false' }}">Order</a></li>
         <li class="{{ $tab1=='favorite' ? 'active' : '' }}"><a href="{{ url('/buyer/favorite') }}" aria-expanded="{{ $tab1=='favorite' ? 'true' : 'false' }}">Favorite Seller</a></li>
         <li class="{{ $tab1=='wish' ? 'active' : '' }}"><a href="{{ url('/buyer/wish-list') }}" aria-expanded="{{ $tab1=='wish' ? 'true' : 'false' }}">My Wishes</a></li>
-    </ul> 
+        <li class="{{ $tab1=='test' ? 'active' : '' }}"><a href="{{ url('/buyer/test') }}" aria-expanded="{{ $tab1=='test' ? 'true' : 'false' }}">Test</a></li>
+    </ul>
     @yield('content')
 </div>
 @endsection

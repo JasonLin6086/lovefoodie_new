@@ -301,6 +301,11 @@ class WebController extends Controller
         return view('buyer.profile', compact('user'));
     }
 
+    public function buyerTest(){
+        $user = Auth::user();
+        return view('buyer.test', compact('user'));
+    }
+
     // update user profile
     public function buyerProfileModify(Request $request){
         $user = \App::call('App\Http\Controllers\UserController@update', [$request->id]);
