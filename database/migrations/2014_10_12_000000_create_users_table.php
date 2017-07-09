@@ -15,9 +15,20 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('provider')->nullable();
+            $table->string('provider_user_id')->nullable();
+            $table->string('image')->nullable();
+            $table->string('avatar')->nullable();
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('email');
             $table->string('password');
+            $table->string('phone_number')->nullable();
+            $table->string('address')->nullable();
+            $table->string('google_place_id')->nullable();
+            $table->boolean('isseller');
+//            $table->dateTime('last_login_time');
+            $table->boolean('verified')->default(false);
+            $table->string('verify_token', 40)->nullable();            
             $table->rememberToken();
             $table->timestamps();
         });
@@ -30,6 +41,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::drop('users');
     }
 }

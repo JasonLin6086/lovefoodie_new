@@ -19,7 +19,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['middleware' => ['auth']], function () {
+//Route::group(['middleware' => ['auth']], function () {
     // 01 users
     Route::get('/buyer/profile', 'WebController@buyerProfile');
     Route::post('/buyer/profile', 'WebController@buyerProfileModify');
@@ -61,9 +61,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::delete('/buyer/payment/card/{cardid}', 'WebController@buyerDeleteCard');
     Route::post('/buyer/payment/pay', 'WebController@buyerPay');
 
-});
+//});
 
-Route::group(['middleware' => ['auth']], function () {
+//Route::group(['middleware' => ['auth']], function () {
     // 02 sellers
     Route::get('/seller/profile', 'WebController@sellerProfile');
     Route::post('/seller/profile', 'WebController@sellerProfileModify');   
@@ -100,4 +100,8 @@ Route::group(['middleware' => ['auth']], function () {
     // 17 payments
     Route::get('/seller/bank-info', 'WebController@sellerBankInfo');
     Route::post('/seller/payment/account', ['as' => '/seller/payment/account', 'uses' => 'WebController@sellerBankAccountAdd']);
-});
+//});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
