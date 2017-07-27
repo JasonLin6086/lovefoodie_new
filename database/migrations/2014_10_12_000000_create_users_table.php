@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('phone_number')->nullable();
             $table->string('address')->nullable();
             $table->string('google_place_id')->nullable();
-            $table->boolean('isseller');
+            $table->boolean('isseller')->default(false);
 //            $table->dateTime('last_login_time');
             $table->boolean('verified')->default(false);
             $table->string('verify_token', 40)->nullable();            
