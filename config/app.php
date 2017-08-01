@@ -162,7 +162,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        
+
         /*
          * Package Service Providers...
          */
@@ -171,9 +171,9 @@ return [
         /*
          * API Documentation Providers...
          */
-        LithiumDev\Swagger\SwaggerServiceProvider::class, 
-       
-         
+        LithiumDev\Swagger\SwaggerServiceProvider::class,
+
+
          /*
          * Application Service Providers...
          */
@@ -194,15 +194,16 @@ return [
          * Passport providers...
          */
         Laravel\Passport\PassportServiceProvider::class,
-        
+
         /*
          * SMS providers...
          */
         SimpleSoftwareIO\SMS\SMSServiceProvider::class,
-        
+
         Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Laravel\Scout\ScoutServiceProvider::class,
+        Snowfire\Beautymail\BeautymailServiceProvider::class,
     ],
 
     /*

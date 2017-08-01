@@ -29,7 +29,8 @@
         "elasticsearch/elasticsearch": "^5.0",
         "algolia/algoliasearch-client-php": "^1.13",
         "mobiledetect/mobiledetectlib": "^2.8",
-        "jenssegers/agent": "^2.4"
+        "jenssegers/agent": "^2.4",
+        "snowfire/beautymail": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
