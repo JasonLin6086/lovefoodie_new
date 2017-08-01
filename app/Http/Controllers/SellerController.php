@@ -339,9 +339,10 @@ class SellerController extends Controller
      *   summary="Returns status for this seller",
      *   description="Returns status for this seller, possible status= <br>
                        'DELIVER_SETTING_MISSING', <br> 'DELIVER_SETTING_INVALID', <br>
-                        'PAYMENT_SETTING_MISSING', <br> 'PAYMENT_IDENTITY_PENDING', <br>
-                        'PAYMENT_IDENTITY_FAIL', <br> 'PAYMENT_BANK_PENDING', <br>
-                        'PAYMENT_BANK_VERIFY_FAIL', <br> 'PAYMENT_BANK_ERROR' <br> 
+                        'PAYMENT_SETTING_MISSING', <br> 'PAYMENT_IDENTITY_SSNLAST4', <br> 
+                        'PAYMENT_IDENTITY_SSNFULL', <br> 'PAYMENT_IDENTITY_SCANID', <br> 
+                        'PAYMENT_IDENTITY_VERIFY_FAIL', <br> 'PAYMENT_BANK_PENDING', <br>
+                        'PAYMENT_BANK_VERIFY_FAIL', <br> 'PAYMENT_BANK_ERROR', <br> 
                         'PHONE_VERIFY_REQUIRED' <br>  'OK'",
      *   operationId="getStatusBySeller",
      *   produces={"application/json"},

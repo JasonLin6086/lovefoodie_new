@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use Validator;
+use Session;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Service\UserAccountService;
@@ -11,6 +12,8 @@ use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ConfirmationEmail;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
 
 class RegisterController extends Controller
 {
@@ -42,6 +45,7 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+        parent::__construct();
     }
 
     /**
@@ -77,17 +81,43 @@ class RegisterController extends Controller
         UserAccountService::storeDefaultImage($user);
         return $user;
     }
+  
     
+    /**
+     * @SWG\Post(path="/register",
+     *   tags={"01 Users"},
+     *   summary="Register a new user",
+     *   description="Register a new user",
+     *   operationId="register",
+     *   produces={"application/xml", "application/json"},
+     *   consumes ={"multipart/form-data", "application/x-www-form-urlencoded" },
+     * 
+     *   @SWG\Parameter(name="name", in="formData", required=true, type="string"),
+     *   @SWG\Parameter(name="email", in="formData", required=true, type="string"),
+     *   @SWG\Parameter(name="password", in="formData", required=true, type="string"),
+     *   @SWG\Parameter(name="password_confirmation", in="formData", required=true, type="string"),
+     * 
+     *   @SWG\Response(response=200, description="success"),
+     *   @SWG\Response(response=422, description="validation fail"),
+     * )
+     */
+    // Register user for apps
+    public function registerForApp(Request $request){
+        return $this->handleRegister($request); 
+    }
     
+    // Register user for website
     public function register(Request $request)
     {
+        $this->handleRegister($request);
+        return back()->with('info', 'Please confirm your email address.');
+    }
+    
+    private function handleRegister(Request $request){
         $this->validator($request->all())->validate();
-
         event(new Registered($user = $this->create($request->all())));
-
         Mail::to($user->email)->send(new ConfirmationEmail($user));
-        
-        return back()->with('status', 'Please confirm your email address.');
+        return $user;
     }
     
     /**
@@ -95,10 +125,16 @@ class RegisterController extends Controller
      *
      * @param  string $token
      * @return mixed
-     */
+     */    
     public function confirmEmail($verify_token)
     {
-        User::whereVerifyToken($verify_token)->firstOrFail()->confirmEmail();
-        return redirect('login')->with('status', 'You are now confirmed. Please login.');
+        try{        
+            User::whereVerifyToken($verify_token)->firstOrFail()->confirmEmail();
+        }catch(ModelNotFoundException $e){
+            throw new NotAcceptableHttpException('Authentication Fail. The request path may be used or incorrect.');
+        }
+        
+        return redirect('confirm-success');
+        //return redirect('login')->with('success', 'You are now confirmed. Please login.');  //$this->agent->isMobile()? redirect('home') : 
     }
 }
