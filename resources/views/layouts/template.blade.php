@@ -73,20 +73,21 @@
                                 <ul>
                                     <!-- Authentication Links -->
                                     @if (Auth::guest())
-                                    <!--li><input type="submit" value="Become a Seller" class="btn_1" id="submit-newsletter_2" onclick="location.href='{{ url('seller/profile') }}';"></li-->
+                                    <li><input type="submit" value="Become a Seller" class="btn_1" id="submit-newsletter_2" onclick="location.href='{{ url('seller/profile') }}';"></li>
                                     <li><a href="{{ url('/login') }}">Login</a></li>
                                     <li><a href="{{ url('/register') }}">Sign Up</a></li>
                                     @else
                                         @if(!Auth::user()->isseller)
-                                            <!--li><input type="submit" value="Become a Seller" class="btn_1" id="submit-newsletter_2" onclick="location.href='{{ url('seller/profile') }}';"></li-->
+                                            <li><input type="submit" value="Become a Seller" class="btn_1" id="submit-newsletter_2" onclick="location.href='{{ url('seller/profile') }}';"></li>
                                         @else
-                                            <!--li><input type="submit" value="Manage My Store" class="btn_1" id="submit-newsletter_2" onclick="location.href='{{ url('seller/dish-list') }}';"></li-->
+                                            <li><input type="submit" value="Manage My Store" class="btn_1" id="submit-newsletter_2" onclick="location.href='{{ url('seller/dish-list') }}';"></li>
                                         @endif
                                         <li class="dropdown">
                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 @php
-    $usericon = Auth::user()->image;
-    $usericon = is_null($usericon) ? "/image/defaultusericon.png" : "/storage/".$usericon;
+    //$usericon = Auth::user()->image;
+    //$usericon = is_null($usericon) ? "/image/defaultusericon.png" : "/storage/".$usericon;
+    $usericon = "/image/defaultusericon.png";
 @endphp
                                                 <img src="{{ url('/').$usericon }}" width="30" height="30" alt="" data-retina="true" style="border-radius:50%;margin-right:20px;" data-toggle="dropdown" >
                                                 {{ Auth::user()->name }} <span class="caret"></span>
