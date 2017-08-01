@@ -85,9 +85,8 @@
                                         <li class="dropdown">
                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 @php
-    //$usericon = Auth::user()->image;
-    //$usericon = is_null($usericon) ? "/image/defaultusericon.png" : "/storage/".$usericon;
-    $usericon = "/image/defaultusericon.png";
+    $usericon = Auth::user()->image;
+    $usericon = is_null($usericon) ? "/image/defaultusericon.png" : "/storage/".$usericon;
 @endphp
                                                 <img src="{{ url('/').$usericon }}" width="30" height="30" alt="" data-retina="true" style="border-radius:50%;margin-right:20px;" data-toggle="dropdown" >
                                                 {{ Auth::user()->name }} <span class="caret"></span>
